@@ -1,113 +1,84 @@
-void main() {
-  // สร้าง instance ของ Person
-  Person owner = Person(name: 'Lin Ker');
-  // สร้าง instance ของ Engine
-  Engine engine = Engine(model: 'V10', speed: 200);
-  // สร้าง instance ของ Honda
-  Honda honda = Honda(brand: 'Honda', model: 'Toyota', owner: owner, engine: engine, color: 'Green');
-  // เรียกใช้ฟังก์ชัน displayCarInfo() และ run() ของ Honda
-  honda.displayCarInfo();
-  honda.run();
-}
-
 class Person {
-  String n_name;
-  Person({required String name}) : n_name = name;
-  
+  String _name;
+  Person(this._name);
   // getter และ setter สำหรับ name
-  String get name => n_name;
-  set name(String name) => n_name = name;
+  String get name => _name;
+  set name(String name) => _name = name;
 }
 
 class Engine {
-  String m_model;
-  int s_speed;
-  Engine({required String model, required int speed})
-      : m_model = model,
-        s_speed = speed;
-  
-  // getter และ setter สำหรับ model
-  String get model => m_model;
-  set model(String model) => m_model = model;
-  // getter และ setter สำหรับ speed
-  int get speed => s_speed;
-  set speed(int speed) => s_speed = speed;
-  
-  // ฟังก์ชัน displayEngineInfo()
+  String _model;
+  int _speed;
+  Engine(this._model, this._speed);
+  // getter และ setter สำหรับ model,speed
+  String get model => _model;
+  set model(String model) => _model = model;
+  int get speed => _speed;
+  set speed(int speed) => _speed = speed;
+
   void displayEngineInfo() {
-    print('Engine Model: $m_model');
-    print('Engine Speed: $s_speed km/h');
+    print('Engine Model: $_model');
+    print('Engine Speed: $_speed km/h');
   }
 }
 
 class Car {
-  String b_brand;
-  String m_model;
-  Person o_owner;
-  Engine e_engine;
-  Car({
-    required String brand,
-    required String model,
-    required Person owner,
-    required Engine engine,
-  })  : b_brand = brand,
-        m_model = model,
-        o_owner = owner,
-        e_engine = engine;
-  
-  // getter และ setter สำหรับ brand
-  String get brand => b_brand;
-  set brand(String brand) => b_brand = brand;
-  // getter และ setter สำหรับ model
-  String get model => m_model;
-  set model(String model) => m_model = model;
-  // getter และ setter สำหรับ owner
-  Person get owner => o_owner;
-  set owner(Person owner) => o_owner = owner;
-  // getter และ setter สำหรับ engine
-  Engine get engine => e_engine;
-  set engine(Engine engine) => e_engine = engine;
-  
-  // ฟังก์ชัน displayCarInfo()
+  String _brand;
+  String _model;
+  Person _owner;
+  Engine _engine;
+  Car(this._brand, this._model, this._owner, this._engine);
+  // getter และ setter สำหรับ brand,model,owner,engine
+  String get brand => _brand;
+  set brand(String brand) => _brand = brand;
+  String get model => _model;
+  set model(String model) => _model = model;
+  Person get owner => _owner;
+  set owner(Person owner) => _owner = owner;
+  Engine get engine => _engine;
+  set engine(Engine engine) => _engine = engine;
+
   void displayCarInfo() {
-    print('Brand: $b_brand');
-    print('Model: $m_model');
-    print('Owner: ${o_owner.name}');
-    e_engine.displayEngineInfo();
+    print('Brand: $_brand');
+    print('Model: $_model');
+    print('Owner: ${_owner.name}');
+    _engine.displayEngineInfo();
   }
-  // ฟังก์ชัน run()
   void run() {
-    print('Running at ${e_engine.speed} km/h');
+    print('The car is running at a speed of ${_engine.speed} km/h');
   }
 }
 
 class Honda extends Car {
-  String c_color;
-  Honda({
-    required String brand,
-    required String model,
-    required Person owner,
-    required Engine engine,
-    required String color,
-  })  : c_color = color,
-        super(brand: brand, model: model, owner: owner, engine: engine);
-  
+  String _color;
+  Honda(String brand, String model, Person owner, Engine engine, this._color)
+      : super(brand, model, owner, engine);
   // getter และ setter สำหรับ color
-  String get color => c_color;
-  set color(String color) => c_color = color;
-  
-  // Override ฟังก์ชัน run()
+  String get color => _color;
+  set color(String color) => _color = color;
+
   @override
   void run() {
-    print('Running at 120 km/h');
+    print('The Honda car is running at a speed of 120 km/h');
   }
-  // Override ฟังก์ชัน displayCarInfo()
   @override
   void displayCarInfo() {
     print('Brand: $brand');
     print('Model: $model');
-    print('Color: $c_color');
+    print('Color: $color');
     print('Owner: ${owner.name}');
     engine.displayEngineInfo();
   }
+}
+
+void main() {
+  Person owner = Person('Lin Ker');
+  Engine engine = Engine('V10', 200);
+  Car car = Car('Toyota', 'Corolla', owner, engine);
+  car.displayCarInfo();
+  car.run();
+  print('=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=');
+  Honda honda = Honda('Honda', 'Civic', owner, engine, 'Green');
+  honda.displayCarInfo();
+  honda.run();
 }
